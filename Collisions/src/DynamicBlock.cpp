@@ -39,7 +39,7 @@ DynamicBlock::DynamicBlock(sf::Vector2f position, sf::Vector2f size, unsigned in
 
 	// Create a fixture definition for the collider
 	b2FixtureDef colliderDef;
-	colliderDef.restitution = 1.0f;
+	colliderDef.restitution = 1.f;
 	colliderDef.shape = &box;
 	colliderDef.density = density;
 	colliderDef.friction = 0.0f;
@@ -50,6 +50,7 @@ DynamicBlock::DynamicBlock(sf::Vector2f position, sf::Vector2f size, unsigned in
 	// Attach the collider to the body
 	m_body->CreateFixture(&colliderDef);
 
+	m_index = index;
 	setUserData(index);
 }
 
@@ -59,6 +60,13 @@ void DynamicBlock::onContact(b2Fixture* contactFixture)
 	if (m_firstContact == nullptr)
 	{
 		m_firstContact = contactFixture;
+
+		if (m_index == 0)
+		{
+			// Apply your impulse here
+			b2Vec2 impulse(1.f, 0.0f);  // Modify the impulse vector as per your requirement
+			m_body->ApplyLinearImpulseToCenter(impulse, true);
+		}
 	}
 }
 
@@ -78,11 +86,6 @@ void DynamicBlock::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 void DynamicBlock::onUpdate()
 {
-	// Set the velocity of the body to a constant speed
-	float desiredSpeed = 1.0f; // Replace with your desired speed value
-	b2Vec2 velocity = b2Vec2(desiredSpeed, 0.0f); // Replace the values with your desired velocity
-	m_body->SetLinearVelocity(velocity);
-
 	// Update the position and rotation of the shape to match the position and angle of the body
 	m_shape.setPosition(m_body->GetPosition().x, m_body->GetPosition().y);
 }
