@@ -64,7 +64,7 @@ void DynamicBlock::onContact(b2Fixture* contactFixture)
 		if (m_index == 0)
 		{
 			// Apply your impulse here
-			b2Vec2 impulse(1.f, 0.0f);  // Modify the impulse vector as per your requirement
+			b2Vec2 impulse(100000.f, 0.0f);  // Modify the impulse vector as per your requirement
 			m_body->ApplyLinearImpulseToCenter(impulse, true);
 		}
 	}
