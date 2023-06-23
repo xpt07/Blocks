@@ -6,7 +6,7 @@ std::shared_ptr<b2World> Scene::m_world = std::make_shared<b2World>(b2Vec2(0.0f,
 Scene::Scene(const sf::Vector2f& viewSize, sf::Vector2i& parentSize) : Layer(viewSize, parentSize)
 {
 	// Constants used for creating blocks
-	const float bw = 0.45f; // Block width
+	const float bw = 0.5f; // Block width
 	const float halfbw = bw / 2; // Half of the block width
 	const sf::Vector2f halfViewSize(viewSize.x / 2, viewSize.y / 2); // Half of the view size
 	const float halfRoot2 = sqrt(2.f) / 2; // Half of the square root of 2
@@ -14,10 +14,11 @@ Scene::Scene(const sf::Vector2f& viewSize, sf::Vector2i& parentSize) : Layer(vie
 	// Set the world for m_degbugDraw
 	m_debugDraw.setWorld(m_world);
 
-	m_blocks.push_back(StaticBlock(sf::Vector2f(4.f, 0.5f), sf::Vector2f(bw * 30, bw / 50), m_blocks.size(), 0.f));
-	m_blocks.push_back(StaticBlock(sf::Vector2f(7.f, 2.f), sf::Vector2f(bw * 30, bw / 50), m_blocks.size(), 90.f));
+	m_blocks.push_back(StaticBlock(sf::Vector2f(4.f, 0.5f), sf::Vector2f(bw * 30, bw / 50), m_blocks.size(), 0.f, 1.0f));
+	m_blocks.push_back(StaticBlock(sf::Vector2f(7.f, 2.f), sf::Vector2f(bw * 30, bw / 50), m_blocks.size(), 90.f, 1.0f));
 
-	m_dblocks.push_back(DynamicBlock(sf::Vector2f(4.f, 0.65f), sf::Vector2f(bw, bw), m_dblocks.size(), 1.f, 0.0f, 0.6f, ObjectCollisionFilter::block));
+	m_dblocks.push_back(DynamicBlock(sf::Vector2f(1.f, 0.65f), sf::Vector2f(bw, bw), m_dblocks.size(), 1.f, 0.0f, 1.f));
+	m_dblocks.push_back(DynamicBlock(sf::Vector2f(4.f, 0.65f), sf::Vector2f(bw, bw), m_dblocks.size(), 1.f, 0.0f, 1.f));
 
 	// Set the collision listener for the scene and register it with the physics world
 	m_collisionListener.setScene(this);
