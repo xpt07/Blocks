@@ -2,7 +2,7 @@
 #include <box2d/box2d.h>
 #include <SFML/Graphics.hpp>
 
-enum ObjectCollisionFilter { unset = 0, block = 1,  dynblock = 2};
+enum ObjectCollisionFilter { unset = 0, block = 1, dynblock = 2 };
 
 // PhysicalObject is a class that represents an object with a physical body
 class PhysicalObject : public sf::Drawable
@@ -12,13 +12,13 @@ public:
 	virtual void onContact(b2Fixture* contactFixture) {};
 	virtual void offContact(b2Fixture* contactFixture) {};
 
-	void setUserData(unsigned int index) 
-	{ 
+	void setUserData(unsigned int index)
+	{
 		unsigned int filterbits = m_filter << 16;
 
 		unsigned int finalbits = filterbits | index;
 
-		m_body->GetUserData().pointer = finalbits; 
+		m_body->GetUserData().pointer = finalbits;
 	};
 
 	inline ObjectCollisionFilter getCollisionFilter() { return m_filter; };

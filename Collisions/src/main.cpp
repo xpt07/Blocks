@@ -6,15 +6,18 @@
 #include <SFML/Graphics.hpp>
 #include "ui.h"
 #include "Scene.h"
+#include "collisionListener.h"
 
 void main() /** Entry point for the application */
 {
-	sf::Vector2i windowSize(1024,800);
-	sf::ContextSettings settings(0,0,16,4,4,0,false);
+	sf::Vector2i windowSize(1024, 800);
+	sf::ContextSettings settings(0, 0, 16, 4, 4, 0, false);
 	sf::RenderWindow window(sf::VideoMode(windowSize.x, windowSize.y), "Collisions", 7U, settings); // Open main window
 
 	sf::Clock clock;
 
+	collisionListener collisions;
+	UI points({ 1024.f, 800.f }, windowSize, { 10, 780 });
 	Scene scene({ 8,6 }, windowSize);
 
 	// Run a game loop
@@ -23,7 +26,6 @@ void main() /** Entry point for the application */
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
-
 			sf::Vector2i pixelCoords(event.mouseButton.x, event.mouseButton.y);
 
 			// window closed button pressed
@@ -32,7 +34,7 @@ void main() /** Entry point for the application */
 
 			if (event.type == sf::Event::KeyPressed) {
 				scene.onKeyPress(event.key.code);
-			}	
+			}
 
 			if (event.type == sf::Event::MouseButtonPressed)
 			{
@@ -43,15 +45,18 @@ void main() /** Entry point for the application */
 			else if (event.type == sf::Event::Resized)
 				windowSize = { static_cast<int>(event.size.width), static_cast<int>(event.size.height) };
 		}
-		
+
+		points.setTextString(collisions.getCollisionCount());
+
 		float fElapsedTime = clock.getElapsedTime().asSeconds();
 		clock.restart();
-		
+
 		window.clear(sf::Color::Black);
 
 		scene.onUpdate(fElapsedTime);
 
 		window.draw(scene);
+		window.draw(points);
 
 		window.display();
 	}

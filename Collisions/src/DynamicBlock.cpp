@@ -29,7 +29,7 @@ DynamicBlock::DynamicBlock(sf::Vector2f position, sf::Vector2f size, unsigned in
 	rigidBodyDef.type = b2_dynamicBody;
 	rigidBodyDef.position = b2Vec2(position.x, position.y);
 	rigidBodyDef.angle = orientationRadians;
-	rigidBodyDef.fixedRotation= true;
+	rigidBodyDef.fixedRotation = true;
 	rigidBodyDef.linearDamping = 0.0f;
 	m_body = world->CreateBody(&rigidBodyDef);
 
