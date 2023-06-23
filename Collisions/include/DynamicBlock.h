@@ -32,7 +32,7 @@ public:
 private:
 
 	b2Fixture* m_firstContact = nullptr; // Pointer to the first fixture that the dynamic block comes into contact with in the physics simulation
-
+	int m_index;
 	sf::Color m_colour; // Current color of the dynamic block
 	sf::RectangleShape m_shape; // m_shape is a rectangle shape that represents the visual aspect of the dynamic block
 };
