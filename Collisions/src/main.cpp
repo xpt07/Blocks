@@ -48,7 +48,7 @@ void main() /** Entry point for the application */
 
 		points.setTextString(collisions.getCollisionCount());
 
-		float fElapsedTime = clock.getElapsedTime().asSeconds() * 0.05;
+		float fElapsedTime = clock.getElapsedTime().asSeconds() * 0.1;
 		clock.restart();
 
 		window.clear(sf::Color::Black);
