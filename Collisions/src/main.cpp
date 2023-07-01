@@ -17,7 +17,7 @@ void main() /** Entry point for the application */
 	sf::Clock clock;
 
 	collisionListener collisions;
-	UI points({ 1024.f, 800.f }, windowSize, { 10, 780 });
+	UI points({ 1024.f, 800.f }, windowSize, { 700, 10 });
 	Scene scene({ 8,6 }, windowSize);
 
 	// Run a game loop
@@ -48,7 +48,7 @@ void main() /** Entry point for the application */
 
 		points.setTextString(collisions.getCollisionCount());
 
-		float fElapsedTime = clock.getElapsedTime().asSeconds() * 0.1;
+		float fElapsedTime = clock.getElapsedTime().asSeconds();
 		clock.restart();
 
 		window.clear(sf::Color::Black);

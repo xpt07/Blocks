@@ -17,7 +17,7 @@ Scene::Scene(const sf::Vector2f& viewSize, sf::Vector2i& parentSize) : Layer(vie
 	m_blocks.push_back(StaticBlock(sf::Vector2f(4.f, 0.5f), sf::Vector2f(bw * 100, bw / 50), m_blocks.size(), 0.f, 1.0f));
 	m_blocks.push_back(StaticBlock(sf::Vector2f(7.f, 2.f), sf::Vector2f(bw * 30, bw / 50), m_blocks.size(), 90.f, 1.0f));
 
-	m_dblocks.push_back(DynamicBlock(sf::Vector2f(1.f, 0.65f), sf::Vector2f(bw, bw), m_dblocks.size(), 10000.f, 0.0f, 1.f));
+	m_dblocks.push_back(DynamicBlock(sf::Vector2f(1.f, 0.65f), sf::Vector2f(bw, bw), m_dblocks.size(), 1.f, 0.0f, 1.f));
 	m_dblocks.push_back(DynamicBlock(sf::Vector2f(4.f, 0.65f), sf::Vector2f(bw, bw), m_dblocks.size(), 1.f, 0.0f, 1.f));
 
 	// Set the collision listener for the scene and register it with the physics world

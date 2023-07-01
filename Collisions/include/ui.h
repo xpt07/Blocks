@@ -9,7 +9,7 @@ public:
 	void setTextString(const std::string& text); //!<Set the string of m_text
 	void onMouseMoved(const sf::Vector2i& pixelCoords) override;
 
-private:
+protected:
 	sf::Font m_font; //!< A font so we can write text
 	sf::Text m_text; //!< A text widget which we'll use to write text
 };

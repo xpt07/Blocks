@@ -22,5 +22,3 @@ protected:
 private:
 	Layer& operator=(const Layer&) {}; //!< Delete the assignment operator
 };
-
-

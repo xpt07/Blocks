@@ -7,8 +7,17 @@ DynamicBlock::DynamicBlock(sf::Vector2f position, sf::Vector2f size, unsigned in
 
 	// Create the shape, setting the position, orientation, size, etc..
 	m_shape.setPosition(position);
-	m_shape.setSize(size);
-	m_shape.setOrigin(size / 2.f);
+
+	if (index == 0)
+	{
+		m_shape.setSize(sf::Vector2f(1.5 * size.x, 1.5 * size.y));
+		m_shape.setOrigin(sf::Vector2f(size.x, size.y / 2.f));
+	}
+	else
+	{
+		m_shape.setSize(size);
+		m_shape.setOrigin(size / 2.f);
+	}
 	m_shape.setRotation(orientationDegrees);
 	m_shape.setFillColor(sf::Color::Black);
 	m_shape.setOutlineColor(sf::Color::White);
@@ -64,7 +73,7 @@ void DynamicBlock::onContact(b2Fixture* contactFixture)
 		if (m_index == 0)
 		{
 			// Apply your impulse here
-			b2Vec2 impulse(10000.f, 0.0f);  // Modify the impulse vector as per your requirement
+			b2Vec2 impulse(1.f, 0.0f);  // Modify the impulse vector as per your requirement
 			m_body->ApplyLinearImpulseToCenter(impulse, true);
 		}
 	}
