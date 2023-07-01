@@ -5,10 +5,11 @@
 
 #include <SFML/Graphics.hpp>
 #include "ui.h"
+#include "Button.h"
 #include "Scene.h"
 #include "collisionListener.h"
 
-void main() /** Entry point for the application */
+int main() /** Entry point for the application */
 {
 	sf::Vector2i windowSize(1024, 800);
 	sf::ContextSettings settings(0, 0, 16, 4, 4, 0, false);
@@ -16,6 +17,7 @@ void main() /** Entry point for the application */
 
 	sf::Clock clock;
 
+	Button button({ 1024.f, 800.f }, windowSize, { 400, 300 }, "Click Me!");
 	collisionListener collisions;
 	UI points({ 1024.f, 800.f }, windowSize, { 700, 10 });
 	Scene scene({ 8,6 }, windowSize);
@@ -57,8 +59,9 @@ void main() /** Entry point for the application */
 
 		window.draw(scene);
 		window.draw(points);
+		window.draw(button);
 
 		window.display();
 	}
-
+	return 0;
 }
