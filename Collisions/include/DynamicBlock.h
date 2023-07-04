@@ -35,4 +35,5 @@ private:
 	int m_index;
 	sf::Color m_colour; // Current color of the dynamic block
 	sf::RectangleShape m_shape; // m_shape is a rectangle shape that represents the visual aspect of the dynamic block
+	float m_density;
 };

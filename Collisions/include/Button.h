@@ -9,6 +9,7 @@ public:
 
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
+    sf::RectangleShape getShape() { return m_buttonshape; };
 
     void onMouseMoved(const sf::Vector2i& pixelCoords) override;
 
@@ -27,7 +28,7 @@ private:
         Pressed
     };
 
-
+    sf::RectangleShape m_buttonshape;
     std::string m_buttonText;
     sf::Vector2f m_buttonSize;
     sf::Color m_buttonFillColor;

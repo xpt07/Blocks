@@ -17,7 +17,8 @@ int main() /** Entry point for the application */
 
 	sf::Clock clock;
 
-	Button button({ 1024.f, 800.f }, windowSize, { 400, 300 }, "Click Me!");
+	Button onegbutton({ 1024.f, 800.f }, windowSize, { 400, 300 }, "1g Block");
+	Button hundredgbutton({ 1024.f, 800.f }, windowSize, { 400, 200 }, "100g Block");
 	collisionListener collisions;
 	UI points({ 1024.f, 800.f }, windowSize, { 700, 10 });
 	Scene scene({ 8,6 }, windowSize);
@@ -38,10 +39,38 @@ int main() /** Entry point for the application */
 				scene.onKeyPress(event.key.code);
 			}
 
+			if (event.type == sf::Event::MouseEntered)
+			{
+				onegbutton.onMouseMoved(pixelCoords);
+			}
+
 			if (event.type == sf::Event::MouseButtonPressed)
 			{
-				std::cout << pixelCoords.x << " " << pixelCoords.y << std::endl;
-				scene.onMouseButtonPressed(pixelCoords, event.mouseButton.button);
+				if (event.mouseButton.button == sf::Mouse::Left)
+				{
+					sf::FloatRect onegbuttonBounds = onegbutton.getShape().getGlobalBounds();
+					sf::Vector2f mousePosition(pixelCoords.x, pixelCoords.y);
+
+					if (onegbuttonBounds.contains(mousePosition))
+					{
+						scene.CreateBlock(1.f);
+					}
+
+					sf::FloatRect hundredgbuttonBounds = hundredgbutton.getShape().getGlobalBounds();
+
+					if (hundredgbuttonBounds.contains(mousePosition))
+					{
+						scene.CreateBlock(100.f);
+					}
+				}
+			}
+
+
+
+			if (event.type == sf::Event::MouseButtonReleased)
+			{
+				onegbutton.onMouseButtonReleased(pixelCoords, event.mouseButton.button);
+				hundredgbutton.onMouseButtonReleased(pixelCoords, event.mouseButton.button);
 			}
 
 			else if (event.type == sf::Event::Resized)
@@ -59,7 +88,8 @@ int main() /** Entry point for the application */
 
 		window.draw(scene);
 		window.draw(points);
-		window.draw(button);
+		window.draw(onegbutton);
+		window.draw(hundredgbutton);
 
 		window.display();
 	}

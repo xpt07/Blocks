@@ -8,19 +8,31 @@ Button::Button(const sf::Vector2f& viewSize, sf::Vector2i& parentSize, sf::Vecto
     m_buttonOutlineColor = sf::Color::White;
     m_buttonOutlineThickness = 2.0f;
     m_buttonState = ButtonState::Normal;
+    m_text.setString(buttonText);
+
+    m_buttonshape.setPosition(m_text.getPosition());
+    m_buttonshape.setSize(m_buttonSize);
+    m_buttonshape.setFillColor(m_buttonFillColor);
+    m_buttonshape.setOutlineColor(m_buttonOutlineColor);
+    m_buttonshape.setOutlineThickness(m_buttonOutlineThickness);
+
+    //m_buttonShape.setPosition(m_text.getPosition());
+    //buttonShape.setFillColor(m_buttonFillColor);
+    //buttonShape.setOutlineColor(m_buttonOutlineColor);
+    //buttonShape.setOutlineThickness(m_buttonOutlineThickness);
 }
 
 void Button::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     target.setView(m_view);
 
-    // Draw the button shape
-    sf::RectangleShape buttonShape(m_buttonSize);
-    buttonShape.setPosition(m_text.getPosition());
-    buttonShape.setFillColor(m_buttonFillColor);
-    buttonShape.setOutlineColor(m_buttonOutlineColor);
-    buttonShape.setOutlineThickness(m_buttonOutlineThickness);
-    target.draw(buttonShape);
+    //// Draw the button shape
+    //sf::RectangleShape buttonShape(m_buttonSize);
+    //buttonShape.setPosition(m_text.getPosition());
+    //buttonShape.setFillColor(m_buttonFillColor);
+    //buttonShape.setOutlineColor(m_buttonOutlineColor);
+    //buttonShape.setOutlineThickness(m_buttonOutlineThickness);
+    target.draw(m_buttonshape);
 
     // Draw the button text
     target.draw(m_text);
