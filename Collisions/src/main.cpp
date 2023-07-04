@@ -17,8 +17,8 @@ int main() /** Entry point for the application */
 
 	sf::Clock clock;
 
-	Button onegbutton({ 1024.f, 800.f }, windowSize, { 400, 300 }, "1g Block");
-	Button hundredgbutton({ 1024.f, 800.f }, windowSize, { 400, 200 }, "100g Block");
+	Button onegbutton({ 1024.f, 800.f }, windowSize, { 900, 300 }, "1g Block");
+	Button hundredgbutton({ 1024.f, 800.f }, windowSize, { 900, 200 }, "100g Block");
 	collisionListener collisions;
 	UI points({ 1024.f, 800.f }, windowSize, { 700, 10 });
 	Scene scene({ 8,6 }, windowSize);
@@ -49,14 +49,15 @@ int main() /** Entry point for the application */
 				if (event.mouseButton.button == sf::Mouse::Left)
 				{
 					sf::FloatRect onegbuttonBounds = onegbutton.getShape().getGlobalBounds();
+
+					sf::FloatRect hundredgbuttonBounds = hundredgbutton.getShape().getGlobalBounds();
+
 					sf::Vector2f mousePosition(pixelCoords.x, pixelCoords.y);
 
 					if (onegbuttonBounds.contains(mousePosition))
 					{
 						scene.CreateBlock(1.f);
 					}
-
-					sf::FloatRect hundredgbuttonBounds = hundredgbutton.getShape().getGlobalBounds();
 
 					if (hundredgbuttonBounds.contains(mousePosition))
 					{

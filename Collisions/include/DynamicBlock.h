@@ -23,6 +23,8 @@ public:
 	// Function called when the dynamic block goes out of contact with another fixture in the physics simulation
 	void offContact(b2Fixture* contactFixture) override;
 
+	bool bContact();
+
 	// Overridden draw method that draws the static block
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 

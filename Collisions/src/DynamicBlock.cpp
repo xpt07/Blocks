@@ -89,6 +89,19 @@ void DynamicBlock::offContact(b2Fixture* contactFixture)
 	}
 }
 
+bool DynamicBlock::bContact()
+{
+	if (m_firstContact != nullptr)
+	{
+		return true;
+	}
+
+	else
+	{
+		return false;
+	}
+}
+
 void DynamicBlock::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(m_shape); // Draws the shape

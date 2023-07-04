@@ -70,6 +70,18 @@ void Scene::onUpdate(float timestep)
 	{
 		auto& dblock = m_dblocks[i];
 		dblock.onUpdate();
+
+		if (!dblock.bContact())
+		{
+			// Destroy the Box2D body associated with the dynamic block object
+			m_world->DestroyBody(dblock.getBody());
+
+			// Remove the dynamic block object from the vector
+			m_dblocks.erase(m_dblocks.begin() + i);
+
+			// Decrement the loop counter to account for the erased element
+			--i;
+		}
 	}
 
 	// Clearing the debug draw
