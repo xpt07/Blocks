@@ -56,11 +56,13 @@ int main() /** Entry point for the application */
 
 					if (onegbuttonBounds.contains(mousePosition))
 					{
+						collisions.setCollisionCount(0);
 						scene.CreateBlock(1.f);
 					}
 
 					if (hundredgbuttonBounds.contains(mousePosition))
 					{
+						collisions.setCollisionCount(0);
 						scene.CreateBlock(100.f);
 					}
 				}
@@ -79,6 +81,7 @@ int main() /** Entry point for the application */
 		}
 
 		points.setTextString(collisions.getCollisionCount());
+
 
 		float fElapsedTime = clock.getElapsedTime().asSeconds();
 		clock.restart();
