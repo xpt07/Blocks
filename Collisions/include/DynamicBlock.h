@@ -23,6 +23,8 @@ public:
 	// Function called when the dynamic block goes out of contact with another fixture in the physics simulation
 	void offContact(b2Fixture* contactFixture) override;
 
+	bool bContact();
+
 	// Overridden draw method that draws the static block
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
@@ -35,4 +37,5 @@ private:
 	int m_index;
 	sf::Color m_colour; // Current color of the dynamic block
 	sf::RectangleShape m_shape; // m_shape is a rectangle shape that represents the visual aspect of the dynamic block
+	float m_density;
 };

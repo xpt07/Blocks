@@ -5,10 +5,11 @@
 
 #include <SFML/Graphics.hpp>
 #include "ui.h"
+#include "Button.h"
 #include "Scene.h"
 #include "collisionListener.h"
 
-void main() /** Entry point for the application */
+int main() /** Entry point for the application */
 {
 	sf::Vector2i windowSize(1024, 800);
 	sf::ContextSettings settings(0, 0, 16, 4, 4, 0, false);
@@ -16,8 +17,10 @@ void main() /** Entry point for the application */
 
 	sf::Clock clock;
 
+	Button onegbutton({ 1024.f, 800.f }, windowSize, { 900, 300 }, "1g Block");
+	Button hundredgbutton({ 1024.f, 800.f }, windowSize, { 900, 200 }, "100g Block");
 	collisionListener collisions;
-	UI points({ 1024.f, 800.f }, windowSize, { 10, 780 });
+	UI points({ 1024.f, 800.f }, windowSize, { 700, 10 });
 	Scene scene({ 8,6 }, windowSize);
 
 	// Run a game loop
@@ -36,10 +39,41 @@ void main() /** Entry point for the application */
 				scene.onKeyPress(event.key.code);
 			}
 
+			if (event.type == sf::Event::MouseEntered)
+			{
+				onegbutton.onMouseMoved(pixelCoords);
+			}
+
 			if (event.type == sf::Event::MouseButtonPressed)
 			{
-				std::cout << pixelCoords.x << " " << pixelCoords.y << std::endl;
-				scene.onMouseButtonPressed(pixelCoords, event.mouseButton.button);
+				if (event.mouseButton.button == sf::Mouse::Left)
+				{
+					sf::FloatRect onegbuttonBounds = onegbutton.getShape().getGlobalBounds();
+
+					sf::FloatRect hundredgbuttonBounds = hundredgbutton.getShape().getGlobalBounds();
+
+					sf::Vector2f mousePosition(pixelCoords.x, pixelCoords.y);
+
+					if (onegbuttonBounds.contains(mousePosition))
+					{
+						collisions.setCollisionCount(0);
+						scene.CreateBlock(1.f);
+					}
+
+					if (hundredgbuttonBounds.contains(mousePosition))
+					{
+						collisions.setCollisionCount(0);
+						scene.CreateBlock(100.f);
+					}
+				}
+			}
+
+
+
+			if (event.type == sf::Event::MouseButtonReleased)
+			{
+				onegbutton.onMouseButtonReleased(pixelCoords, event.mouseButton.button);
+				hundredgbutton.onMouseButtonReleased(pixelCoords, event.mouseButton.button);
 			}
 
 			else if (event.type == sf::Event::Resized)
@@ -47,6 +81,7 @@ void main() /** Entry point for the application */
 		}
 
 		points.setTextString(collisions.getCollisionCount());
+
 
 		float fElapsedTime = clock.getElapsedTime().asSeconds();
 		clock.restart();
@@ -57,8 +92,10 @@ void main() /** Entry point for the application */
 
 		window.draw(scene);
 		window.draw(points);
+		window.draw(onegbutton);
+		window.draw(hundredgbutton);
 
 		window.display();
 	}
-
+	return 0;
 }

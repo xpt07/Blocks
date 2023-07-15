@@ -1,15 +1,14 @@
 #include "Scene.h"
 
-// Create a shared pointer to a Box2D world with a default gravity vector (0, -9.81)
 std::shared_ptr<b2World> Scene::m_world = std::make_shared<b2World>(b2Vec2(0.0f, 0.0f));
 
 Scene::Scene(const sf::Vector2f& viewSize, sf::Vector2i& parentSize) : Layer(viewSize, parentSize)
 {
-	// Constants used for creating blocks
-	const float bw = 0.5f; // Block width
-	const float halfbw = bw / 2; // Half of the block width
-	const sf::Vector2f halfViewSize(viewSize.x / 2, viewSize.y / 2); // Half of the view size
-	const float halfRoot2 = sqrt(2.f) / 2; // Half of the square root of 2
+	//// Constants used for creating blocks
+	//const float bw = 0.5f; // Block width
+	//const float halfbw = bw / 2; // Half of the block width
+	//const sf::Vector2f halfViewSize(viewSize.x / 2, viewSize.y / 2); // Half of the view size
+	//const float halfRoot2 = sqrt(2.f) / 2; // Half of the square root of 2
 
 	// Set the world for m_degbugDraw
 	m_debugDraw.setWorld(m_world);
@@ -17,7 +16,7 @@ Scene::Scene(const sf::Vector2f& viewSize, sf::Vector2i& parentSize) : Layer(vie
 	m_blocks.push_back(StaticBlock(sf::Vector2f(4.f, 0.5f), sf::Vector2f(bw * 100, bw / 50), m_blocks.size(), 0.f, 1.0f));
 	m_blocks.push_back(StaticBlock(sf::Vector2f(7.f, 2.f), sf::Vector2f(bw * 30, bw / 50), m_blocks.size(), 90.f, 1.0f));
 
-	m_dblocks.push_back(DynamicBlock(sf::Vector2f(1.f, 0.65f), sf::Vector2f(bw, bw), m_dblocks.size(), 1.f, 0.0f, 1.f));
+	//m_dblocks.push_back(DynamicBlock(sf::Vector2f(1.f, 0.65f), sf::Vector2f(bw, bw), m_dblocks.size(), 1.f, 0.0f, 1.f));
 	m_dblocks.push_back(DynamicBlock(sf::Vector2f(4.f, 0.65f), sf::Vector2f(bw, bw), m_dblocks.size(), 1.f, 0.0f, 1.f));
 
 	// Set the collision listener for the scene and register it with the physics world
@@ -71,17 +70,22 @@ void Scene::onUpdate(float timestep)
 	{
 		auto& dblock = m_dblocks[i];
 		dblock.onUpdate();
+
+		if (!dblock.bContact())
+		{
+			// Destroy the Box2D body associated with the dynamic block object
+			m_world->DestroyBody(dblock.getBody());
+
+			// Remove the dynamic block object from the vector
+			m_dblocks.erase(m_dblocks.begin() + i);
+
+			// Decrement the loop counter to account for the erased element
+			--i;
+		}
 	}
 
 	// Clearing the debug draw
 	m_debugDraw.clear();
-}
-
-void Scene::onMouseButtonPressed(const sf::Vector2i& pixelCoords, const sf::Mouse::Button& button)
-{
-	// Convert the mouse coordinates to world coordinates
-	sf::Vector2f Coords;
-	Coords = mapPixelToView(pixelCoords);
 }
 
 void Scene::onKeyPress(const sf::Keyboard::Key& key)
@@ -90,5 +94,13 @@ void Scene::onKeyPress(const sf::Keyboard::Key& key)
 	if (key == sf::Keyboard::Tab)
 	{
 		m_debugMode = !m_debugMode;
+	}
+}
+
+void Scene::CreateBlock(float density)
+{
+	if (m_dblocks.size() == 1)
+	{
+		m_dblocks.push_back(DynamicBlock(sf::Vector2f(1.f, 0.65f), sf::Vector2f(bw, bw), m_dblocks.size(), density, 0.0f, 1.f));
 	}
 }

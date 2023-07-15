@@ -26,6 +26,10 @@ public:
 		return "Number of Collisions: " + std::to_string(m_collisionCount - 1);
 	};
 
+	inline void setCollisionCount(int collisioncount)
+	{
+		m_collisionCount = collisioncount;
+	}
 
 private:
 	//Pointer to the Scene object

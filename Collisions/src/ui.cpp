@@ -14,7 +14,7 @@ UI::UI(const sf::Vector2f& viewSize, sf::Vector2i& parentSize, sf::Vector2f posi
 
 	m_text.setFont(m_font);
 	m_text.setCharacterSize(16);
-	m_text.setFillColor(sf::Color::Black);
+	m_text.setFillColor(sf::Color::White);
 	m_text.setPosition(position);
 }
 
