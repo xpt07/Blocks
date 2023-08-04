@@ -109,6 +109,7 @@ void Scene::onKeyPress(const sf::Keyboard::Key& key)
 
 void Scene::CreateBlock(float density)
 {
+	m_collisionListener.setCollisionCount(0);
 
 	m_dblocks.push_back(DynamicBlock(sf::Vector2f(4.f, 0.65f), sf::Vector2f(bw, bw), m_dblocks.size(), 1.f, 0.0f, 1.f));
 
@@ -122,7 +123,7 @@ std::string Scene::getCollisionCount()
 {
 	std::string text = "Number of Collisions: ";
 
-	std::string collisions = std::to_string(m_collisionListener.getCollisionCount() - 1);
+	std::string collisions = m_collisionListener.getCollisionCount();
 
 	return text + collisions;
 }

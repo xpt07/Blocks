@@ -19,7 +19,6 @@ int main() /** Entry point for the application */
 
 	Button onegbutton({ 1024.f, 800.f }, windowSize, { 900, 300 }, "1g Block");
 	Button hundredgbutton({ 1024.f, 800.f }, windowSize, { 900, 200 }, "100g Block");
-	collisionListener collisions;
 	UI points({ 1024.f, 800.f }, windowSize, { 700, 10 });
 	Scene scene({ 8,6 }, windowSize);
 
@@ -56,13 +55,11 @@ int main() /** Entry point for the application */
 
 					if (onegbuttonBounds.contains(mousePosition))
 					{
-						collisions.setCollisionCount(0);
 						scene.CreateBlock(1.f);
 					}
 
 					if (hundredgbuttonBounds.contains(mousePosition))
 					{
-						collisions.setCollisionCount(0);
 						scene.CreateBlock(100.f);
 					}
 				}
@@ -80,7 +77,7 @@ int main() /** Entry point for the application */
 				windowSize = { static_cast<int>(event.size.width), static_cast<int>(event.size.height) };
 		}
 
-		points.setTextString(collisions.getCollisionCount());
+		points.setTextString(scene.getCollisionCount());
 
 
 		float fElapsedTime = clock.getElapsedTime().asSeconds();
