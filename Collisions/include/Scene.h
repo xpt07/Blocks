@@ -19,6 +19,7 @@ public:
 	void onUpdate(float timestep) override; //!< Update the scene
 	void onKeyPress(const sf::Keyboard::Key& key) override; //!< On key press
 	void CreateBlock(float density);
+	std::string getCollisionCount();
 
 	static inline std::shared_ptr<b2World> getWorld() { return m_world; }
 private:
