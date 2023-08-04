@@ -4,6 +4,12 @@ std::shared_ptr<b2World> Scene::m_world = std::make_shared<b2World>(b2Vec2(0.0f,
 
 Scene::Scene(const sf::Vector2f& viewSize, sf::Vector2i& parentSize) : Layer(viewSize, parentSize)
 {
+	//// Constants used for creating blocks
+	//const float bw = 0.5f; // Block width
+	//const float halfbw = bw / 2; // Half of the block width
+	//const sf::Vector2f halfViewSize(viewSize.x / 2, viewSize.y / 2); // Half of the view size
+	//const float halfRoot2 = sqrt(2.f) / 2; // Half of the square root of 2
+
 	// Set the world for m_degbugDraw
 	m_debugDraw.setWorld(m_world);
 
@@ -108,7 +114,6 @@ void Scene::CreateBlock(float density)
 
 	if (m_dblocks.size() == 1)
 	{
-		m_collisionListener.setCollisionCount(-1);
 		m_dblocks.push_back(DynamicBlock(sf::Vector2f(1.f, 0.65f), sf::Vector2f(bw, bw), m_dblocks.size(), density, 0.0f, 1.f));
 	}
 }
