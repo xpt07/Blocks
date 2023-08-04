@@ -21,9 +21,9 @@ public:
 	// Setter function to set the pointer to the current Scene object
 	void setScene(Scene* pScene) { m_scene = pScene; };
 
-	inline std::string getCollisionCount()
+	inline int getCollisionCount()
 	{
-		return "Number of Collisions: " + std::to_string(m_collisionCount - 1);
+		return m_collisionCount;
 	};
 
 	inline void setCollisionCount(int collisioncount)
